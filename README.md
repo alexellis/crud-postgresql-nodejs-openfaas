@@ -597,8 +597,7 @@ headers = {"X-Device-Key": deviceKey, "X-Device-ID": deviceID, "Content-Type": "
 
 r = requests.post("http://{}:{}/function/device-status".format(ip, port), headers=headers, json=payload)
 
-print(r.status_code)
-
+print("Temp: {}\tUptime: {} mins\tStatus: {}".format(tempC/1000, uptimeSecs/60, r.status_code))
 ```
 
 * Create a script to run the client at `client/run_client.sh`
