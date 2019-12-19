@@ -582,9 +582,23 @@ port = "31112"
 deviceKey = os.getenv("DEVICE_KEY")
 deviceID = os.getenv("DEVICE_ID")
 
-r = requests.post("http://{}:{}/function/device-status", headers={"X-Device-Key": deviceKey, "X-Device-ID": deviceID})
+uptimeSecs = 0
+with open("/proc/uptime", "r") as f:
+    data = f.read()
+    uptimeSecs = int(data[:str.find(data,".")])
+
+tempC = 0
+with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+    data = f.read()
+    tempC = int(data)
+
+payload = {"temperature": tempC, "uptime": uptimeSecs}
+headers = {"X-Device-Key": deviceKey, "X-Device-ID": deviceID, "Content-Type": "application/json"}
+
+r = requests.post("http://{}:{}/function/device-status".format(ip, port), headers=headers, json=payload)
 
 print(r.status_code)
+
 ```
 
 * Create a script to run the client at `client/run_client.sh`
@@ -596,6 +610,7 @@ export HOST_IP=91.211.152.145
 export DEVICE_KEY=4dcf92826314c9c3308b643fa0e579b87f7afe37
 export DEVICE_ID=1
 
+cd /home/pi/client
 python3 ./app.py
 ```
 
