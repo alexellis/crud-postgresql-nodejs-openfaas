@@ -1,4 +1,4 @@
-# Guide to build a CRUD API with Postgresl and Node.js with OpenFaaS
+# Guide to build a CRUD API with Postgresql and Node.js with OpenFaaS
 
 In this guide you will learn how to create a CRUD API using Postgresql for storage, Node.js for application code, and OpenFaaS to automate Kubernetes. Since we are building on top of Kubernetes, we also get portability out of the box, scaling and self-healing infrastructure.
 
