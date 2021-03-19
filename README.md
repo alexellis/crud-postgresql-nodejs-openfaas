@@ -360,9 +360,10 @@ module.exports = async (event, context) => {
     }
 
     let deviceKey = event.headers["x-device-key"]
+    let deviceID = event.headers["x-device-id"]
 
-    if(deviceKey && event.body.deviceID) {
-        let deviceID = event.body.deviceID
+    if(deviceKey && deviceID) {
+
         const { rows } = await pool.query("SELECT device_id, device_key FROM device WHERE device_id = $1 and device_key = $2", [deviceID,deviceKey]);
         if(rows.length) {
             await insertStatus(event, pool);
@@ -376,7 +377,7 @@ module.exports = async (event, context) => {
 }
 
 async function insertStatus(event, pool) {
-    let id = event.body.deviceID;
+    let id = event.headers["x-device-id"];
     let uptime = event.body.uptime;
     let temperature = event.body.temperature;
 
