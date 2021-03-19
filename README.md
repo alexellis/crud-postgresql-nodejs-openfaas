@@ -58,16 +58,18 @@ If you're a KUBE100 user, then you can add Postgresql as an application in your 
 
 For everyone else run the following.
 
-* Install k3sup which can install Postgresql and OpenFaaS
+* Install arkade which can install Postgresql and OpenFaaS
 
 ```sh
-curl -sLfS https://get.k3sup.dev | sudo sh
+curl -sLfS https://dl.get-arkade.dev | sudo sh
 ```
+
+> If you prefer, you can also run this command without `sh`, and then move the arkade binary into your PATH afterwards.
 
 * Install Postgresql
 
 ```sh
-k3sup app install postgresql
+arkade app install postgresql
 ```
 
 You should see output like this:
@@ -114,10 +116,10 @@ If you're a KUBE100 user, then you can add OpenFaaS as an application in your Ci
 
 For everyone else run the following.
 
-* Install openfaas using k3sup
+* Install openfaas using arkade
 
 ```sh
-k3sup app install openfaas
+arkade app install openfaas
 ```
 
 Again, note the output because it will show you how to connect and fetch your password.
@@ -250,7 +252,7 @@ CREATE TABLE device_status (
 ALTER TABLE device_status ADD CONSTRAINT device_status_key PRIMARY KEY(status_id);
 ```
 
-Create both tables using a `pqsql` prompt, you took a note of this in the earlier step when you installed Postgresql with `k3sup`. The command given will run the `pgsql` CLI in a Kubernetes container.
+Create both tables using a `pqsql` prompt, you took a note of this in the earlier step when you installed Postgresql with `arkade`. The command given will run the `pgsql` CLI in a Kubernetes container.
 
 Simply paste the text into the prompt.
 
